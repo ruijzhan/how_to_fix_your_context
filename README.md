@@ -48,34 +48,64 @@ A key insight from Breunig's research: **"Context is not free. Every token in th
 This repository demonstrates each technique through practical Jupyter notebooks:
 
 ### 1. RAG (Retrieval-Augmented Generation)
-**Notebook**: [01-rag.ipynb](01-rag.ipynb)
+**Notebook**: [notebooks/01-rag.ipynb](notebooks/01-rag.ipynb)
 
-Selectively adding relevant information to improve LLM responses while preventing information overload. Critical even with large context windows.
+Selectively adding relevant information to improve LLM responses while preventing information overload. RAG prevents context overload by carefully selecting relevant information from vector databases.
+
+**Key implementation features:**
+- Vector-based document retrieval using LangChain
+- Agent-based RAG with LangGraph workflows
+- Tool-based retrieval for dynamic context selection
 
 ### 2. Tool Loadout
-**Notebook**: [02-tool-loadout.ipynb](02-tool-loadout.ipynb)
+**Notebook**: [notebooks/02-tool-loadout.ipynb](notebooks/02-tool-loadout.ipynb)
 
-Selecting only the most relevant tool definitions when managing multiple tools. Can improve performance and reduce power consumption.
+Selecting only the most relevant tool definitions when managing multiple tools. Drew's research shows **Llama 3.1 8b fails with 46 tools** but performs well with 19 tools.
+
+**Key implementation features:**
+- Semantic similarity search over tool descriptions
+- LangGraph Bigtool for dynamic tool selection
+- **44% performance improvement** with selective tool loading
 
 ### 3. Context Quarantine
-**Notebook**: [03-context-quarantine.ipynb](03-context-quarantine.ipynb)
+**Notebook**: [notebooks/03-context-quarantine.ipynb](notebooks/03-context-quarantine.ipynb)
 
-Isolating contexts in dedicated threads to allow parallel processing of subtasks and reduce path dependency.
+Isolating contexts in dedicated threads to allow parallel processing of subtasks. Anthropic's multi-agent system achieved **90.2% better performance** using this approach.
+
+**Key implementation features:**
+- Multi-agent supervisor architecture with LangGraph
+- Parallel context processing with isolated agents
+- Reduced path dependency through context isolation
 
 ### 4. Context Pruning
-**Notebook**: [04-context-pruning.ipynb](04-context-pruning.ipynb)
+**Notebook**: [notebooks/04-context-pruning.ipynb](notebooks/04-context-pruning.ipynb)
 
-Removing irrelevant or unnecessary information to dramatically reduce context size while maintaining response quality.
+Removing irrelevant information to dramatically reduce context size. The **Provence tool can reduce document size by 95%** while maintaining quality.
+
+**Key implementation features:**
+- LangChain's `trim_messages` function for message management
+- Token-aware pruning with fallback mechanisms
+- Heuristic compression for long-running conversations
 
 ### 5. Context Summarization
-**Notebook**: [05-context-summarization.ipynb](05-context-summarization.ipynb)
+**Notebook**: [notebooks/05-context-summarization.ipynb](notebooks/05-context-summarization.ipynb)
 
-Condensing accumulated context into shorter versions to prevent context distraction, particularly useful for long-running conversations.
+Condensing accumulated context into shorter versions to prevent context distraction. **Gemini research found performance issues with contexts over 100,000 tokens**.
+
+**Key implementation features:**
+- Automatic summarization at conversation boundaries
+- Tool output summarization to reduce token usage
+- Running summary maintenance with LangGraph state
 
 ### 6. Context Offloading
-**Notebook**: [06-context-offloading.ipynb](06-context-offloading.ipynb)
+**Notebook**: [notebooks/06-context-offloading.ipynb](notebooks/06-context-offloading.ipynb)
 
-Storing information outside the primary context to create a "scratchpad" for notes and intermediate thinking in complex multi-step processes.
+Storing information outside the primary context as a "scratchpad" for complex reasoning. Anthropic's research shows **performance improvements up to 54%**.
+
+**Key implementation features:**
+- State-based scratchpads with LangGraph
+- Long-term memory across conversation threads
+- Context selection strategies for optimal performance
 
 ## Getting Started
 
