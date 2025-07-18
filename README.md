@@ -32,7 +32,9 @@ export ANTHROPIC_API_KEY="your-anthropic-api-key"
 
 ### The Context Problem
 
-Context problems occur when information in an LLM's context window negatively impacts response quality. As Drew Breunig notes in his foundational post on [How Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html), there are four primary failure modes:
+Chroma's report on [Context Rot](https://research.trychroma.com/context-rot) notes that LLMs do not treat every token in their context window equally. Across 18 models (including GPT‑4.1, Claude 4, Gemini 2.5, Qwen3, etc.), they show that performance on even very simple tasks degrades—often in non‑uniform and surprising ways—as the input length grows.
+
+Drew Breunig has outlined four primary failure modes on [why long contexts fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html):
 
 1. **Context Poisoning** - Hallucinations or errors that enter the context and get repeatedly referenced
 2. **Context Distraction** - When context grows so large that models focus more on accumulated history than training
@@ -41,11 +43,11 @@ Context problems occur when information in an LLM's context window negatively im
 
 ### Why Context Management Matters
 
-A key insight from Breunig's research: **"Context is not free. Every token in the context influences the model's behavior."** Larger context windows don't automatically improve performance. As contexts grow, they introduce complex failure modes that can significantly degrade AI system effectiveness, especially for agents performing multi-step reasoning.
+A key insight from Drew's post is that: **"Context is not free. Every token in the context influences the model's behavior."** Larger context windows don't automatically improve performance. As contexts grow, they introduce complex failure modes that can significantly degrade AI system effectiveness, especially for agents performing multi-step reasoning.
 
 ## The 6 Context Management Techniques
 
-This repository demonstrates each technique through practical Jupyter notebooks:
+Drew has a follow up post that outlines [6 context management techniques](https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html).This repository demonstrates each technique through practical Jupyter notebooks:
 
 ### 1. RAG (Retrieval-Augmented Generation)
 **Notebook**: [notebooks/01-rag.ipynb](notebooks/01-rag.ipynb)
