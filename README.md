@@ -2,6 +2,8 @@
 
 This repository contains practical implementations of the 6 key context management techniques outlined in Drew Breunig's post ["How to Fix Your Context"](https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html).
 
+<img width="4777" height="1983" alt="context_eng_drew" src="https://github.com/user-attachments/assets/b6c07894-f6c6-41d0-9d95-e5e7030189b3" />
+
 ## 🚀 Quickstart 
 
 ### Prerequisites
@@ -16,7 +18,6 @@ cd how_to_fix_your_context
 uv venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
-
 2. Install dependencies:
 ```bash
 uv pip install -r requirements.txt
