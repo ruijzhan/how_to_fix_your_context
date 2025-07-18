@@ -34,20 +34,26 @@ export ANTHROPIC_API_KEY="your-anthropic-api-key"
 
 Chroma's report on [Context Rot](https://research.trychroma.com/context-rot) notes that LLMs do not treat every token in their context window equally. Across 18 models (including GPT‑4.1, Claude 4, Gemini 2.5, Qwen3, etc.), they show that performance on even very simple tasks degrades—often in non‑uniform and surprising ways—as the input length grows.
 
-Drew Breunig has outlined four primary failure modes on [why long contexts fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html):
+With this in mind, Drew Breunig outlined four failure modes on [why long contexts fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html):
 
 1. **Context Poisoning** - Hallucinations or errors that enter the context and get repeatedly referenced
 2. **Context Distraction** - When context grows so large that models focus more on accumulated history than training
 3. **Context Confusion** - Superfluous content that influences response quality, as models feel compelled to use all available context
 4. **Context Clash** - Conflicting information within the accumulated context that degrades reasoning
 
-### Why Context Management Matters
+## Context Management Techniques
 
-A key insight from Drew's post is that: **"Context is not free. Every token in the context influences the model's behavior."** Larger context windows don't automatically improve performance. As contexts grow, they introduce complex failure modes that can significantly degrade AI system effectiveness, especially for agents performing multi-step reasoning.
+Drew outlined [6 context management techniques](https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html) to help fix these failure modes. This repository demonstrates each technique using a set of Jupyter notebooks and LangGraph.
 
-## The 6 Context Management Techniques
+### LangGraph
 
-Drew has a follow up post that outlines [6 context management techniques](https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html).This repository demonstrates each technique through practical Jupyter notebooks:
+LangGraph is a low [is a low-level orchestration framework](https://blog.langchain.com/how-to-think-about-agent-frameworks/). You can [lay out agents and workflows as a set of nodes](https://www.youtube.com/watch?v=aHCDrAbH_go), [define](https://blog.langchain.com/how-to-think-about-agent-frameworks/) the logic within each one, and define an state object that is passed between them. A [StateGraph](https://langchain-ai.github.io/langgraph/concepts/low_level/#stategraph) is LangGraph's primary abstraction for building these stateful workflows and agents with:
+
+- **Nodes** are processing steps that receive current state and return updates
+- **Edges** connect nodes to create execution flow (linear, conditional, or cyclical)
+- **State** serves as a shared scratchpad between nodes
+
+This low-level control makes it easy to implement each of these techniques.
 
 ### 1. RAG (Retrieval-Augmented Generation)
 **Notebook**: [notebooks/01-rag.ipynb](notebooks/01-rag.ipynb)
