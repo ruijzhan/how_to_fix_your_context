@@ -46,3 +46,36 @@ def format_messages(messages):
 def format_message(messages):
     """Alias for format_messages for backward compatibility"""
     return format_messages(messages)
+
+
+def format_retriever_results(result, title="Retriever Tool Results"):
+    """Format and display retriever tool results with proper text wrapping
+    
+    Args:
+        result: List of documents from retriever tool or a string
+        title: Title to display above the results
+    """
+    # Initialize console for rich formatting with width limit
+    formatted_console = Console(width=100)
+    
+    formatted_console.print(f"[bold green]{title}:[/bold green]")
+    
+    # Handle case where result is a string
+    if isinstance(result, str):
+        formatted_console.print(f"\n[yellow]Content:[/yellow]")
+        formatted_console.print(result, style="white")
+        return
+    
+    # Handle case where result is a list of documents
+    for i, doc in enumerate(result):
+        formatted_console.print(f"\n[bold blue]Document {i+1}:[/bold blue]")
+        
+        # Check if doc has metadata attribute (Document object)
+        if hasattr(doc, 'metadata'):
+            formatted_console.print(f"[cyan]Source:[/cyan] {doc.metadata.get('source', 'Unknown')}")
+            formatted_console.print(f"[yellow]Content:[/yellow]")
+            formatted_console.print(doc.page_content, style="white")
+        else:
+            # Handle case where doc is just a string
+            formatted_console.print(f"[yellow]Content:[/yellow]")
+            formatted_console.print(str(doc), style="white")
